@@ -76,7 +76,7 @@ export function isFFmpegLoaded(): boolean {
 // Tools
 // =========================================================================
 
-export type ToolId = "gif" | "audio" | "compress" | "convert";
+export type ToolId = "gif" | "audio" | "compress" | "convert" | "snapshot";
 
 export type ToolMeta = {
   id: ToolId;
@@ -114,6 +114,13 @@ export const TOOLS: ToolMeta[] = [
     description: "MP4 ↔ WebM ↔ MOV",
     outputExt: "mp4",
     outputMime: "video/mp4",
+  },
+  {
+    id: "snapshot",
+    label: "Snapshot frame",
+    description: "Grab the current frame as a high-quality PNG",
+    outputExt: "png",
+    outputMime: "image/png",
   },
 ];
 
@@ -531,6 +538,32 @@ export function buildCompressArgs(
     outputName,
   );
   return args;
+}
+
+/**
+ * Extract one frame at `timeSec` as a high-quality PNG.
+ * Uses -ss before -i for fast seeking (keyframe-accurate is enough for
+ * a thumbnail; for sub-frame precision we'd need -ss after -i which is
+ * much slower).
+ */
+export function buildSnapshotArgs(
+  inputName: string,
+  outputName: string,
+  timeSec: number,
+): string[] {
+  return [
+    "-ss",
+    timeSec.toFixed(3),
+    "-i",
+    inputName,
+    "-frames:v",
+    "1",
+    "-q:v",
+    "2",
+    "-update",
+    "1",
+    outputName,
+  ];
 }
 
 export function buildConvertArgs(

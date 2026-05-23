@@ -16,6 +16,7 @@ import {
   buildAudioArgs,
   buildCompressArgs,
   buildConvertArgs,
+  buildSnapshotArgs,
   type ToolId,
   type ToolMeta,
   type GifPreset,
@@ -78,6 +79,7 @@ function getOutputExt(tool: ToolId, convertFormat: ConvertFormat): string {
   if (tool === "convert") return convertFormat.ext;
   if (tool === "gif") return "gif";
   if (tool === "audio") return "mp3";
+  if (tool === "snapshot") return "png";
   return "mp4";
 }
 
@@ -85,6 +87,7 @@ function getOutputMime(tool: ToolId, convertFormat: ConvertFormat): string {
   if (tool === "convert") return convertFormat.mime;
   if (tool === "gif") return "image/gif";
   if (tool === "audio") return "audio/mpeg";
+  if (tool === "snapshot") return "image/png";
   return "video/mp4";
 }
 
@@ -329,6 +332,11 @@ export default function Home() {
             videoAspect,
           );
           break;
+        case "snapshot": {
+          const t = videoRef.current?.currentTime ?? 0;
+          args = buildSnapshotArgs(inputName, outputName, t);
+          break;
+        }
       }
 
       await ffmpeg.exec(args);
@@ -482,11 +490,11 @@ export default function Home() {
               {/* Preview pane */}
               <div className="flex flex-col gap-3">
                 <div className="bg-black rounded-2xl overflow-hidden aspect-video flex items-center justify-center">
-                  {status.kind === "done" && status.tool.id === "gif" ? (
+                  {status.kind === "done" && (status.tool.id === "gif" || status.tool.id === "snapshot") ? (
                     /* eslint-disable-next-line @next/next/no-img-element */
                     <img
                       src={status.resultUrl}
-                      alt="Converted GIF preview"
+                      alt={status.tool.id === "snapshot" ? "Extracted frame" : "Converted GIF"}
                       className="max-w-full max-h-full"
                     />
                   ) : status.kind === "done" && status.tool.id === "audio" ? (
@@ -528,7 +536,7 @@ export default function Home() {
                 {status.kind === "loaded" && (
                   <>
                     {/* Tool selector */}
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2">
                       {TOOLS.map((t) => (
                         <button
                           key={t.id}
@@ -579,6 +587,12 @@ export default function Home() {
                       />
                     )}
 
+                    {tool === "snapshot" && (
+                      <div className="border border-zinc-200 dark:border-zinc-800 rounded-xl p-3 text-sm text-zinc-600 dark:text-zinc-400">
+                        Play the video, pause on the frame you want, then click <strong className="text-zinc-900 dark:text-zinc-100">Snapshot frame</strong>. The exported PNG keeps the source resolution.
+                      </div>
+                    )}
+
                     {(tool === "compress" || tool === "convert") && (
                       <div className="border border-zinc-200 dark:border-zinc-800 rounded-xl p-3 flex flex-col gap-2">
                         <div className="text-sm font-medium">Aspect ratio</div>
@@ -606,8 +620,8 @@ export default function Home() {
                       </div>
                     )}
 
-                    {/* Trim panel */}
-                    {trim.durationSec > 0 && (
+                    {/* Trim panel — not shown for Snapshot (single frame, time picked via video.currentTime) */}
+                    {trim.durationSec > 0 && tool !== "snapshot" && (
                       <div className="border border-zinc-200 dark:border-zinc-800 rounded-xl p-3 flex flex-col gap-3">
                         <label className="flex items-center gap-2 text-sm font-medium cursor-pointer">
                           <input
@@ -657,7 +671,7 @@ export default function Home() {
                       </div>
                     )}
 
-                    {tool !== "audio" && (
+                    {tool !== "audio" && tool !== "snapshot" && (
                       <div className="border border-zinc-200 dark:border-zinc-800 rounded-xl p-3 flex flex-col gap-3">
                         <label className="flex items-center gap-2 text-sm font-medium cursor-pointer">
                           <input
