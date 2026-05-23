@@ -76,7 +76,7 @@ ClipCraft est une **SPA statique 100% client-side**.
 ### Frontend
 | Couche | Lib | Version | Raison |
 |--------|-----|---------|--------|
-| Framework | **Next.js** | 15 (App Router) | SEO metadata API, OG image native, file routing, Vercel-friendly |
+| Framework | **Next.js** | **16.2.6** (App Router, Turbopack par défaut) | SEO metadata API, OG image native, file routing, Vercel-friendly. Réalité : le scaffold a installé 16.2.6 (Next.js 16 sorti récemment), pas 15. Avec React 19.2.4. |
 | Build | `next build` + `output: 'export'` | — | Statique pur, déployable n'importe où |
 | Styling | **Tailwind CSS** | v4 (zero-config) | Productivité max, bundle minimal |
 | Composants | **shadcn/ui** | latest | Button, Slider, Progress, Toast, Dropdown — copiés dans le repo |
@@ -194,6 +194,8 @@ ClipCraft est une **SPA statique 100% client-side**.
 - **A004** : Aucun backend, aucune DB → promesse "zero upload" + 0 € structurel.
 - **A005** : Pas de monorepo, pas de Turbo, pas de tests E2E au MVP → vélocité > over-engineering.
 - **A006** : shadcn/ui (composants copiés) plutôt que MUI/Chakra → bundle minimal + zéro lock-in.
+- **A007** (J3, après scaffold) : `output: 'export'` retenu, headers COOP/COEP **déplacés dans `vercel.json`** car static export ignore `headers()` async dans next.config (pas de serveur Next).
+- **A008** (J3) : shadcn/ui **non installé au MVP** — UI brute Tailwind suffit pour la première version, ajout possible plus tard si besoin.
 
 ## 10. Structure de répertoires prévue
 

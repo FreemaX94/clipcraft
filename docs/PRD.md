@@ -71,7 +71,7 @@ Le fichier ne quitte JAMAIS l'ordinateur de l'utilisateur. Conversion locale, in
 
 ## 7. Stack pressentie (à confirmer en Phase 3 Architecture)
 
-- **Framework** : Next.js 15 App Router (ou Vite + React si Next.js trop lourd)
+- **Framework** : Next.js 16.2.6 App Router (Turbopack par défaut) + React 19.2.4
 - **UI** : Tailwind v4 + shadcn/ui
 - **Worker ffmpeg** : `@ffmpeg/ffmpeg` v0.12+ (Web Worker pour pas bloquer le main thread)
 - **Hébergement** : Vercel (free hobby tier)

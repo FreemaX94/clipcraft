@@ -42,6 +42,24 @@ Format : chaque décision = un bloc avec **Contexte / Options / Choix / Rational
 
 ---
 
+## D005 — Stack confirmée : Next.js 16.2.6 + React 19 + Tailwind v4 + ffmpeg.wasm v0.12.15
+- **Date** : 2026-05-23
+- **Contexte** : scaffold via `create-next-app@latest` a installé Next.js 16 (et non 15 comme prévu dans PRD initial). Vérification de la doc locale : breaking changes OK, Turbopack par défaut, output: 'export' toujours supporté.
+- **Choix** : on reste sur Next.js 16. Aucun blocage identifié.
+- **Rationale** : 16 est stable, performant (Turbopack), et tous les usages de ClipCraft (composant client unique + static export) sont supportés. Pas de raison de downgrade.
+- **Conséquence** : PRD et ARCHITECTURE patchés pour cohérence. Headers COOP/COEP déplacés vers `vercel.json` (static export ignore les headers async dans next.config.ts).
+
+---
+
+## D006 — shadcn/ui repoussé hors MVP
+- **Date** : 2026-05-23
+- **Contexte** : ARCHITECTURE prévoyait shadcn/ui. Pendant le build, j'ai constaté que les composants nécessaires (radio, button, progress bar) sont triviaux en Tailwind brut.
+- **Choix** : pas d'install shadcn/ui pour le MVP. Tailwind v4 direct.
+- **Rationale** : YAGNI. shadcn/ui ajoute une CLI + des composants. Pour 4 boutons + 3 radios + 1 progress bar, c'est over-engineering.
+- **Réversible** : si la Phase 4.4+ demande des composants riches (Toast, Dropdown, Dialog), on installe à ce moment-là.
+
+---
+
 ## D004 — Pas de nom de domaine acheté avant traction prouvée
 - **Date** : 2026-05-23
 - **Contexte** : tentation de réserver `clipcraft.com` ou `clipcraft.io` dès maintenant.

@@ -11,7 +11,7 @@
 
 | Date | Jour | Visiteurs uniques | Signups | Utilisateurs actifs | Revenu (€) | Source principale |
 |------|------|-------------------|---------|---------------------|------------|-------------------|
-| 2026-05-23 | J1 | 0 | 0 | 0 | 0 | — (pre-MVP) |
+| 2026-05-23 | J1 | 0 | 0 | 0 | 0 | — (pre-MVP, Phases 0→4.3 livrées localement) |
 
 ---
 
