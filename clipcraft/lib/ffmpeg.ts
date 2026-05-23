@@ -329,20 +329,97 @@ function trimArgs(trim: TrimRange | null): string[] {
   return ["-ss", trim.startSec.toFixed(3), "-to", trim.endSec.toFixed(3)];
 }
 
+// ----- Speed (used by GIF, Compress, Convert) -----
+
+export type SpeedOption = {
+  id: "0.5" | "1.5" | "2" | "4";
+  factor: number; // multiplier on playback speed (>1 = faster, <1 = slower)
+  label: string;
+  description: string;
+};
+
+export const SPEED_OPTIONS: SpeedOption[] = [
+  {
+    id: "0.5",
+    factor: 0.5,
+    label: "Slow 0.5×",
+    description: "Half speed — slow-mo dramatic effect",
+  },
+  {
+    id: "1.5",
+    factor: 1.5,
+    label: "Speed 1.5×",
+    description: "Slightly faster, keeps content readable",
+  },
+  {
+    id: "2",
+    factor: 2,
+    label: "Speed 2×",
+    description: "Most popular for Twitter/X virals",
+  },
+  {
+    id: "4",
+    factor: 4,
+    label: "Speed 4×",
+    description: "Compressed time, meme-friendly",
+  },
+];
+
+/**
+ * Returns a video filter fragment that re-times the stream.
+ * @param factor speed multiplier (e.g. 2 = play twice as fast)
+ */
+function videoSpeedFilter(factor: number): string {
+  // setpts divides the presentation timestamps by the factor.
+  return `setpts=PTS/${factor}`;
+}
+
+/**
+ * Returns an audio filter fragment that re-times the audio without
+ * changing pitch. atempo accepts 0.5-100.0 per filter; for larger ratios
+ * we chain multiple atempo filters.
+ */
+function audioSpeedFilter(factor: number): string {
+  if (factor === 1) return "atempo=1.0";
+  if (factor >= 0.5 && factor <= 100) {
+    // single-stage works
+    if (factor >= 0.5 && factor <= 2) return `atempo=${factor}`;
+    // chain by halving / doubling until in [0.5, 2]
+    const stages: number[] = [];
+    let remaining = factor;
+    while (remaining > 2) {
+      stages.push(2);
+      remaining /= 2;
+    }
+    while (remaining < 0.5) {
+      stages.push(0.5);
+      remaining /= 0.5;
+    }
+    stages.push(remaining);
+    return stages.map((s) => `atempo=${s}`).join(",");
+  }
+  return "atempo=1.0";
+}
+
 export function buildGifArgs(
   inputName: string,
   outputName: string,
   preset: GifPreset,
   trim: TrimRange | null,
+  speed: SpeedOption | null = null,
 ): string[] {
   const trimPart = trimArgs(trim);
-  // For GIF with filters, -ss/-to must be applied to the input. Use -ss before -i for performance.
+  // Compose the GIF filter, prepending the speed re-time before the palette pipeline.
+  let vf = buildGifFilter(preset);
+  if (speed && speed.factor !== 1) {
+    vf = `${videoSpeedFilter(speed.factor)},${vf}`;
+  }
   return [
     ...trimPart,
     "-i",
     inputName,
     "-vf",
-    buildGifFilter(preset),
+    vf,
     "-loop",
     "0",
     outputName,
@@ -373,11 +450,21 @@ export function buildCompressArgs(
   outputName: string,
   preset: CompressPreset,
   trim: TrimRange | null,
+  speed: SpeedOption | null = null,
 ): string[] {
-  return [
-    ...trimArgs(trim),
-    "-i",
-    inputName,
+  const args = [...trimArgs(trim), "-i", inputName];
+  if (speed && speed.factor !== 1) {
+    // Re-time both streams without changing pitch
+    args.push(
+      "-filter_complex",
+      `[0:v]${videoSpeedFilter(speed.factor)}[v];[0:a]${audioSpeedFilter(speed.factor)}[a]`,
+      "-map",
+      "[v]",
+      "-map",
+      "[a]",
+    );
+  }
+  args.push(
     "-c:v",
     "libx264",
     "-crf",
@@ -389,7 +476,8 @@ export function buildCompressArgs(
     "-b:a",
     "128k",
     outputName,
-  ];
+  );
+  return args;
 }
 
 export function buildConvertArgs(
@@ -397,8 +485,19 @@ export function buildConvertArgs(
   outputName: string,
   format: ConvertFormat,
   trim: TrimRange | null,
+  speed: SpeedOption | null = null,
 ): string[] {
   const args = [...trimArgs(trim), "-i", inputName];
+  if (speed && speed.factor !== 1) {
+    args.push(
+      "-filter_complex",
+      `[0:v]${videoSpeedFilter(speed.factor)}[v];[0:a]${audioSpeedFilter(speed.factor)}[a]`,
+      "-map",
+      "[v]",
+      "-map",
+      "[a]",
+    );
+  }
   if (format.id === "webm") {
     // WebM needs explicit codecs; use VP9 with reasonable defaults
     args.push(

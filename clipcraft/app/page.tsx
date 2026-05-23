@@ -9,6 +9,7 @@ import {
   AUDIO_PRESETS,
   COMPRESS_PRESETS,
   CONVERT_FORMATS,
+  SPEED_OPTIONS,
   TOOLS,
   buildGifArgs,
   buildAudioArgs,
@@ -20,6 +21,7 @@ import {
   type AudioPreset,
   type CompressPreset,
   type ConvertFormat,
+  type SpeedOption,
   type TrimRange,
 } from "@/lib/ffmpeg";
 
@@ -101,6 +103,8 @@ export default function Home() {
     endSec: 0,
     durationSec: 0,
   });
+  const [speedEnabled, setSpeedEnabled] = useState(false);
+  const [speed, setSpeed] = useState<SpeedOption>(SPEED_OPTIONS[2]); // default 2×
   const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -290,9 +294,16 @@ export default function Home() {
       let args: string[];
       switch (tool) {
         case "gif":
-          args = buildGifArgs(inputName, outputName, gifPreset, trimArg);
+          args = buildGifArgs(
+            inputName,
+            outputName,
+            gifPreset,
+            trimArg,
+            speedEnabled ? speed : null,
+          );
           break;
         case "audio":
+          // Audio tool does not expose the speed control (rarely useful for MP3 extracts)
           args = buildAudioArgs(inputName, outputName, audioPreset, trimArg);
           break;
         case "compress":
@@ -301,6 +312,7 @@ export default function Home() {
             outputName,
             compressPreset,
             trimArg,
+            speedEnabled ? speed : null,
           );
           break;
         case "convert":
@@ -309,6 +321,7 @@ export default function Home() {
             outputName,
             convertFormat,
             trimArg,
+            speedEnabled ? speed : null,
           );
           break;
       }
@@ -365,6 +378,8 @@ export default function Home() {
     compressPreset,
     convertFormat,
     trim,
+    speed,
+    speedEnabled,
   ]);
 
   return (
@@ -605,6 +620,44 @@ export default function Home() {
                               Play the video above, pause at your in/out points, and click the buttons.
                             </p>
                           </div>
+                        )}
+                      </div>
+                    )}
+
+                    {tool !== "audio" && (
+                      <div className="border border-zinc-200 dark:border-zinc-800 rounded-xl p-3 flex flex-col gap-3">
+                        <label className="flex items-center gap-2 text-sm font-medium cursor-pointer">
+                          <input
+                            type="checkbox"
+                            checked={speedEnabled}
+                            onChange={(e) => setSpeedEnabled(e.target.checked)}
+                          />
+                          Adjust speed
+                        </label>
+                        {speedEnabled && (
+                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                            {SPEED_OPTIONS.map((s) => (
+                              <button
+                                key={s.id}
+                                type="button"
+                                onClick={() => setSpeed(s)}
+                                className={[
+                                  "px-3 py-2 rounded-lg text-sm transition-colors text-center",
+                                  speed.id === s.id
+                                    ? "bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900"
+                                    : "border border-zinc-200 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-600",
+                                ].join(" ")}
+                                title={s.description}
+                              >
+                                {s.label}
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                        {speedEnabled && (
+                          <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                            {speed.description}
+                          </p>
                         )}
                       </div>
                     )}
