@@ -71,12 +71,12 @@ export default function PrivacyPage() {
               and the app keeps working.
             </li>
             <li>
-              <strong>No accounts, no emails, no payments.</strong> We don&apos;t
-              ask you for anything.
+              <strong>No accounts, no emails, no payments.</strong>{" "}
+              We don&apos;t ask you for anything.
             </li>
             <li>
-              <strong>No file metadata leaves your machine.</strong> Filenames,
-              durations, sizes &mdash; all stay local.
+              <strong>No file metadata leaves your machine.</strong>{" "}
+              Filenames, durations, sizes &mdash; all stay local.
             </li>
           </ul>
         </section>
@@ -102,8 +102,8 @@ export default function PrivacyPage() {
               engine (a one-time download of ~25 MB, cached forever).
             </li>
             <li>
-              <strong>Google Fonts</strong> serves the typeface (loaded from
-              Vercel&apos;s edge, no direct hit).
+              <strong>Google Fonts</strong>{" "}
+              serves the typeface (loaded from Vercel&apos;s edge, no direct hit).
             </li>
           </ul>
           <p className="text-sm text-zinc-500 dark:text-zinc-400">

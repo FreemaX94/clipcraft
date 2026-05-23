@@ -41,3 +41,9 @@ coverage/
 # TypeScript
 *.tsbuildinfo
 next-env.d.ts
+
+# Playwright MCP artifacts (snapshots, console logs, screenshots auto-saved at root)
+.playwright-mcp/
+/clipcraft-*.png
+clipcraft/.playwright-mcp/
+clipcraft/clipcraft-*.png

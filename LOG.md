@@ -102,3 +102,32 @@ Format : `[YYYY-MM-DD HH:MM] [PHASE] action → résultat`
 
 **Apprentissage majeur J1** : tout le travail "déterministe" (idéation, archi, code MVP, SEO, contenu marketing) peut être bouclé en 1 session ~6-7h en autonome. Les bottlenecks réels sont les actions humaines (création comptes, validation OAuth, choix subjectifs sur design/naming) — moins critiques que je pensais. La discipline "anti-bikeshedding" du brief était la bonne intuition.
 
+**[18:15] [VALIDATION] Runtime test via Playwright MCP**
+- Lancé `npm run dev` en background, ready en 560ms sur localhost:3000
+- Navigation Playwright headless : `/` et `/privacy`
+- **0 erreurs console, 0 warnings**
+- Screenshots capturés et déplacés dans `docs/screenshots/home.png` et `privacy.png`
+- 3 micro-bugs UX détectés sur /privacy : `</strong>` collé au texte suivant ("payments.We", "machine.Filenames", "Fontsserves") — JSX collapse les espaces entre lignes adjacentes à un closing tag inline
+- Fix : utilisation de `{" "}` explicite après chaque `</strong>` problématique
+- Re-test : tous les espaces corrects (screenshot privacy-fixed.png montre "payments. We", "machine. Filenames", "Google Fonts serves")
+
+**[18:30] [POLISH] README, TECH-DEBT, STANDUPS template**
+- `README.md` à la racine : description du repo + arborescence + quick start + statut
+- `clipcraft/README.md` (replace scaffold default) : pitch + features table + stack + dev/build instructions + architecture notes (3 sous-sections : pourquoi CDN externe / pourquoi COEP credentialless / pourquoi static export) + project layout + caveats + roadmap + license MIT
+- `docs/TECH-DEBT.md` : 8 items documentés (TD-001 trim UX, TD-002 single-thread fallback silencieux, TD-003 pas de fallback CDN, TD-004 pas d'error boundary, TD-005 Vercel Analytics overflow, TD-006 pas de tests auto, TD-007 mobile UX, TD-008 OG image statique) + 4 items "considered but rejected" (accounts, upload, watermark, pro tier — ce sont des engagements, pas du tech debt)
+- `docs/STANDUPS/_template.md` : template stand-up quotidien pour Phase 6 — métriques d'hier, 1 hypothèse à tester, 1 action distribution, 1 amélioration produit, blockers, pivot watch (avec triggers J+10/J+30 et 2 angles de pivot pré-identifiés)
+- `.gitignore` mis à jour : `.playwright-mcp/` et `clipcraft-*.png` à la racine
+
+**État FINAL session J1** :
+- ✅ Phase 0 (bootstrap) : 4 fichiers pilotage
+- ✅ Phase 1 (idéation) : 10 idées scorées, ClipCraft choisi (53/60)
+- ✅ Phase 2 (validation) : verdict GO avec réserve, 8 concurrents analysés
+- ✅ Phase 3 (architecture) : stack confirmée, free-tier validé, 8 decisions doc
+- ✅ Phase 4.1-4.6 (MVP) : Next.js 16 + ffmpeg.wasm + 4 outils + trim + SEO complet
+- ✅ Phase 5 (lancement) : 9 docs prêts-à-coller (~6000 mots)
+- ✅ Validation runtime via Playwright
+- ✅ README + TECH-DEBT + STANDUPS template
+- ⏳ Phase 6 (itération post-launch) : nécessite le deploy = nécessite comptes humains
+
+**Seul blocker irréductible** : création de comptes GitHub + Vercel (15 min d'action humaine).
+
