@@ -65,15 +65,16 @@ ffmpeg.wasm is on unpkg so it doesn't count.
 ### What's shipped beyond the initial scope
 
 - 5 GIF presets including **TikTok/Reels (9:16 vertical)** and **Instagram (1:1 square)** — none of the other ffmpeg.wasm tools I checked surface these as one-click options
+- **Speed control** (0.5× / 1.5× / 2× / 4×) on GIF, Compress, Convert — pitch-preserved audio via chained `atempo` filters. The #1 expected Twitter virality unlock, also missing from competitors.
 - **"Try with a sample video"** button so visitors who land without a video at hand can still evaluate in one click
 - Auto-branded 404 page, custom favicon, PWA manifest (installable as an app)
 
 ### What's next
 
-- "Speed up 2x" preset (super viral on Twitter — this was the #1 feedback theme)
 - Vertical/square crops extended to MP4 compress/convert (currently only GIF)
 - Concat multiple clips into one GIF
 - Frame extraction (PNG sequence)
+- Maybe: speed of audio-extract too (currently audio tool intentionally skips speed)
 
 Would love feedback. The angles I'm worried about:
 

@@ -82,12 +82,12 @@ You see:
 ```
 Four tools, one page:
 
-🎬 Video → GIF (Twitter/Discord-optimized presets)
+🎬 Video → GIF (5 presets: Twitter, Discord, High, TikTok 9:16, Instagram 1:1)
 🎵 Extract audio as MP3
 🗜️ Compress to share over Slack/email
 🔄 Convert MP4 ↔ WebM ↔ MOV
 
-Plus optional trim ("Mark IN / Mark OUT" on the video).
+Plus optional Trim and Speed (0.5×, 1.5×, 2×, 4× — pitch-preserved audio).
 
 All client-side. All free. All forever.
 ```

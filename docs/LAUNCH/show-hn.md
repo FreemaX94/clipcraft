@@ -32,8 +32,10 @@ Worse: most of these tools want you to upload your file to their servers. If
 the video is a screencast of a work product, a customer demo, or anything
 NDA-flavored, that's a problem.
 
-ClipCraft does four things — video to GIF, audio extract (MP3), compression,
-and format conversion (MP4/WebM/MOV) — and it runs ffmpeg.wasm directly in
+ClipCraft does four things — video to GIF (5 presets including TikTok 9:16 +
+Instagram 1:1), audio extract (MP3), compression, and format conversion
+(MP4/WebM/MOV) — with optional trim and speed control (0.5x/1.5x/2x/4x,
+pitch-preserved audio via chained atempo) on top. It runs ffmpeg.wasm in
 your browser. Your file is never uploaded. You can verify it yourself: open
 DevTools, go to the Network tab, drop a video, run a conversion. You'll see
 the initial app load and a one-time ~25MB fetch of the WebAssembly engine

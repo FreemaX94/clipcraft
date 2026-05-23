@@ -15,7 +15,7 @@ ClipCraft is an in-browser video toolkit. Drop any video and get a GIF, an MP3 e
 | Compress | `.mp4` (H.264) | 3 presets: Heavy (CRF 32), Balanced (CRF 26), Light (CRF 22) |
 | Convert format | `.mp4` / `.webm` / `.mov` | H.264 / VP9 / H.264 codecs |
 
-Plus optional **trim** on any tool, via "Mark IN / Mark OUT" buttons that capture the video's current playback time.
+Plus optional **trim** on any tool (via "Mark IN / Mark OUT" buttons that capture the video's current playback time) and optional **speed control** on GIF / Compress / Convert (0.5×, 1.5×, 2×, 4× — audio re-timed without pitch shift via `atempo`).
 
 ## Why
 
@@ -101,7 +101,6 @@ clipcraft/
 
 ## Roadmap (not committed)
 
-- Speed up / slow down (0.5×, 1.5×, 2×)
 - Vertical 9:16 and 1:1 square presets for MP4 / Compress / Convert tools (currently only on the GIF tool)
 - Concat multiple clips into one GIF
 - Frame extraction (PNG sequence)
