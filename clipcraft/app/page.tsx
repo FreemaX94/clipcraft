@@ -157,6 +157,30 @@ export default function Home() {
     [handleFile],
   );
 
+  const [loadingSample, setLoadingSample] = useState(false);
+  const tryWithSample = useCallback(async () => {
+    setLoadingSample(true);
+    try {
+      const res = await fetch("/sample.mp4");
+      if (!res.ok) throw new Error(`Sample fetch failed: ${res.status}`);
+      const blob = await res.blob();
+      const file = new File([blob], "big-buck-bunny-sample.mp4", {
+        type: "video/mp4",
+      });
+      handleFile(file);
+    } catch (err) {
+      setStatus({
+        kind: "error",
+        file: null,
+        previewUrl: null,
+        message:
+          err instanceof Error ? err.message : "Could not load the sample.",
+      });
+    } finally {
+      setLoadingSample(false);
+    }
+  }, [handleFile]);
+
   const onVideoLoadedMetadata = useCallback(() => {
     const v = videoRef.current;
     if (!v) return;
@@ -414,6 +438,22 @@ export default function Home() {
                 MP4, WebM, MOV, MKV — up to {MAX_FILE_MB} MB
               </div>
             </button>
+          )}
+
+          {status.kind === "empty" && (
+            <div className="mt-4 flex flex-col sm:flex-row items-center justify-center gap-2 text-sm">
+              <span className="text-zinc-500 dark:text-zinc-400">
+                No video at hand?
+              </span>
+              <button
+                type="button"
+                onClick={tryWithSample}
+                disabled={loadingSample}
+                className="underline hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors disabled:opacity-50 disabled:cursor-wait"
+              >
+                {loadingSample ? "Loading sample…" : "Try with a sample video →"}
+              </button>
+            </div>
           )}
 
           {status.kind !== "empty" && status.previewUrl && (
@@ -703,7 +743,30 @@ export default function Home() {
 
       <footer className="w-full px-6 py-6 border-t border-zinc-200/60 dark:border-zinc-800/60 text-sm text-zinc-500 dark:text-zinc-400">
         <div className="max-w-5xl mx-auto flex flex-col sm:flex-row gap-2 sm:gap-6 items-center justify-between">
-          <div>Built in public · 100% browser-side · Open source</div>
+          <div className="flex flex-col sm:flex-row gap-1 sm:gap-3 items-center">
+            <span>Built in public · 100% browser-side · Open source</span>
+            <span className="text-xs">
+              Sample:{" "}
+              <a
+                href="https://peach.blender.org/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-zinc-900 dark:hover:text-zinc-100"
+              >
+                Big Buck Bunny
+              </a>{" "}
+              ©{" "}
+              <a
+                href="https://www.blender.org/foundation/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:text-zinc-900 dark:hover:text-zinc-100"
+              >
+                Blender Foundation
+              </a>{" "}
+              (CC BY 3.0)
+            </span>
+          </div>
           <div className="flex items-center gap-4">
             <a
               href="https://ko-fi.com/clipcraft"

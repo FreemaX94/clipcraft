@@ -55,6 +55,14 @@ Rule: refactor when this list reaches 5+ items OR when one item starts blocking 
 - **Follow-up**: add `navigator.userAgent` + memory check, show a "best on desktop" banner if mobile + file > 100 MB.
 - **Trigger**: mobile bounce rate > 60% in Vercel Analytics.
 
+## TD-009 — Sample video (991 KB) hosted on Vercel adds bandwidth
+- **Where**: `clipcraft/public/sample.mp4` (Big Buck Bunny 360p 10s, CC BY 3.0)
+- **What was done**: 991 KB MP4 served from Vercel for the "Try with sample" button
+- **Why shortcut**: simple and reliable. Self-hosted = always works, no external dep.
+- **Risk**: each "Try with sample" click = 991 KB of Vercel bandwidth. At 100 K monthly clicks = 99 GB → close to free tier limit.
+- **Follow-up**: when monthly sample clicks > 50 K, move to a public CDN like jsdelivr (host the file in a GitHub release and serve via `https://cdn.jsdelivr.net/gh/FreemaX94/clipcraft@main/clipcraft/public/sample.mp4`).
+- **Trigger**: Vercel bandwidth usage > 70% of 100 GB.
+
 ## TD-008 — OG image is build-time static, not personalized
 - **Where**: `clipcraft/app/opengraph-image.tsx`
 - **What was done**: one OG image for the whole site
