@@ -64,6 +64,16 @@ Format : chaque décision = un bloc avec **Contexte / Options / Choix / Rational
 
 ---
 
+## D009 — Vercel auto-deploy on push activé via GitHub App
+- **Date** : 2026-05-23 (fin de J1)
+- **Contexte** : depuis le 1ʳᵉ deploy on faisait `vercel deploy --prod --yes` manuellement à chaque commit. Inutile et fastidieux.
+- **Action** : utilisateur a installé la GitHub App Vercel sur son compte FreemaX94 (1 clic). Côté Vercel, POST `/v10/projects/.../link` avec `{"type":"github","repo":"FreemaX94/clipcraft","productionBranch":"main"}` → 200 OK avec bloc `link` retourné.
+- **Conséquence** : tout push sur `main` déclenche un build + deploy automatique Vercel. PRs auront aussi des preview deployments commentés.
+- **Vérifié** : la réponse API contient `gitProviderOptions.createDeployments: enabled` et `productionBranch: main`.
+- **Reste à confirmer** : que le 1ʳᵉ push après ce link déclenche bien un nouveau deployment auto. Smoke test prévu.
+
+---
+
 ## D008 — Désactivation Deployment Protection en prod
 - **Date** : 2026-05-23 (soirée)
 - **Contexte** : Vercel active par défaut SSO Protection sur les nouveaux projets des teams payantes (même free). Tous les endpoints renvoyaient 401 sans token Vercel.

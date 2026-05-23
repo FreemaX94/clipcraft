@@ -241,3 +241,13 @@ Format : `[YYYY-MM-DD HH:MM] [PHASE] action → résultat`
 2. **La feature "Sample 1-click" est probablement le plus gros boost de conversion qu'on puisse faire sans budget marketing.** Coût : 991 KB de bandwidth Vercel + 5 lignes de UI. Bénéfice : tout visiteur peut évaluer en 1 clic.
 3. **Les presets sociaux (TikTok/Instagram) sont une différentiation hard-to-copy** — non pas techniquement (c'est un crop ffmpeg), mais culturellement : les outils ffmpeg.wasm concurrents pensent comme des devs (Twitter, Discord), pas comme des creators.
 
+**[23:00] [CI/CD] GitHub App Vercel installée → auto-deploy activé**
+- User a cliqué "Install" sur https://github.com/apps/vercel/installations/new (compte FreemaX94)
+- POST `/v10/projects/prj_cv56ut7vkVUHTK2rUlG8nUbTqrZf/link` avec `{"type":"github","repo":"FreemaX94/clipcraft","productionBranch":"main"}` → 200 OK
+- Réponse contient bloc `link` : repo lié, productionBranch main, createDeployments=enabled
+- Plus de `vercel deploy --prod --yes` manuel à chaque commit → `git push origin main` déclenche le pipeline
+- DECISIONS.md D009 : trace de l'activation et du smoke test à venir
+- Task #13 (le seul blocker humain restant) → ✅ completed
+
+**🏁 BLOCKERS = 0**. Le système est pleinement autonome maintenant : commit → push → auto-deploy → publié sur clipcraft-app.vercel.app. Plus aucune friction entre code et prod.
+
