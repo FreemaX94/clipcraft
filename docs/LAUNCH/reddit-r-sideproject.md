@@ -66,6 +66,8 @@ ffmpeg.wasm is on unpkg so it doesn't count.
 
 - 5 GIF presets including **TikTok/Reels (9:16 vertical)** and **Instagram (1:1 square)** — none of the other ffmpeg.wasm tools I checked surface these as one-click options
 - **Speed control** (0.5× / 1.5× / 2× / 4×) on GIF, Compress, Convert — pitch-preserved audio via chained `atempo` filters. The #1 expected Twitter virality unlock, also missing from competitors.
+- **Vertical 9:16 / Square 1:1 aspect** on Compress + Convert (already had it on GIF). One-click "social-ready" output for any tool that outputs video.
+- **Snapshot frame** as a 5th tool: pause the video, click to export the current frame as a high-quality PNG. Designed for GitHub README thumbnails and social share images.
 - **"Try with a sample video"** button so visitors who land without a video at hand can still evaluate in one click
 - Auto-branded 404 page, custom favicon, PWA manifest (installable as an app)
 

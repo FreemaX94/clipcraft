@@ -80,12 +80,13 @@ You see:
 ## Tweet 5 (WHAT IT DOES)
 
 ```
-Four tools, one page:
+Five tools, one page:
 
 🎬 Video → GIF (5 presets: Twitter, Discord, High, TikTok 9:16, Instagram 1:1)
 🎵 Extract audio as MP3
-🗜️ Compress to share over Slack/email
+🗜️ Compress (3 levels × 3 aspect ratios)
 🔄 Convert MP4 ↔ WebM ↔ MOV
+📸 Snapshot frame to PNG (README thumbnail in 2 clicks)
 
 Plus optional Trim and Speed (0.5×, 1.5×, 2×, 4× — pitch-preserved audio).
 

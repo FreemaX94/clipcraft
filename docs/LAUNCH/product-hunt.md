@@ -42,11 +42,12 @@ I needed to turn a screen recording of an internal product demo into a GIF for a
 
 **What ClipCraft does**
 
-Four tools, one page:
+Five tools, one page:
 🎬 Video → GIF (5 presets: Twitter, Discord, High-quality, TikTok/Reels 9:16 vertical, Instagram 1:1 square)
 🎵 Extract audio as MP3 (3 quality presets)
-🗜️ Compress to share over Slack/email (3 levels)
-🔄 Convert formats (MP4 ↔ WebM ↔ MOV)
+🗜️ Compress to share over Slack/email (3 levels × 3 aspect ratios)
+🔄 Convert formats (MP4 ↔ WebM ↔ MOV, also × 3 aspect ratios)
+📸 Snapshot frame as PNG (perfect for GitHub README thumbnails)
 
 Plus optional **trim** (mark IN / mark OUT on the video) and **speed control** (0.5× / 1.5× / 2× / 4× — audio re-timed without pitch shift). And a "Try with a sample video" button so you can test in one click — no need to dig up a video to evaluate.
 
@@ -117,9 +118,9 @@ I'm the maker. A few things I want to flag upfront:
 
 **Roadmap**:
 - Concat multiple clips into one GIF
-- Frame extraction (PNG sequence)
+- Multi-frame PNG sequence as a ZIP (single-frame snapshot already shipped)
 - Speed control also on the Audio tool
-- Maybe a desktop-class PWA install (manifest already in place, missing service worker)
+- Maybe a desktop-class PWA install (manifest in place, missing service worker)
 
 Happy to answer any questions about the implementation, the architecture, or the privacy threat model.
 
