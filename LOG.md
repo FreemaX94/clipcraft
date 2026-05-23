@@ -64,3 +64,41 @@ Format : `[YYYY-MM-DD HH:MM] [PHASE] action → résultat`
 
 **Apprentissage J1 (build)** : Next.js 16 + ffmpeg.wasm + static export = stack légère (1.1 Mo bundle), zéro backend, zéro fric. La contrainte "no upload" force des choix architecturaux qui éliminent toute possibilité de coût caché futur.
 
+**[16:30] [PHASE 4.4 + 4.5] Tool selector 4 outils + Trim**
+- `lib/ffmpeg.ts` étendu : ajout `TOOLS` array (4 outils : gif/audio/compress/convert), `AUDIO_PRESETS` (192k/128k/96k), `COMPRESS_PRESETS` (CRF 32/26/22), `CONVERT_FORMATS` (MP4/WebM/MOV avec codecs propres), `buildAudioArgs`/`buildCompressArgs`/`buildConvertArgs`, support `TrimRange`
+- `app/page.tsx` refactor majeur :
+  • Composant `PresetGroup` générique (réutilisé pour les 4 outils)
+  • Tool selector 4 tabs (grille responsive)
+  • Trim toggle avec UX "Mark IN / Mark OUT" capturant `video.currentTime` (au lieu d'un dual-slider complexe)
+  • Preview adaptative : video pour MP4/MOV, audio player pour MP3, img pour GIF
+  • Output filename inféré du tool + du format choisi (convert)
+  • Cleanup ffmpeg FS après chaque conversion
+- 1 type error corrigé (`status.file` peut être null en cas d'erreur d'upload)
+- Build : ✅ compile 1.5s, TS 1.8s
+
+**[17:00] [PHASE 4.6] Privacy + SEO + Analytics**
+- `app/privacy/page.tsx` : page Privacy détaillée — "comment vérifier en 4 étapes que zero upload se passe" + ce qu'on collecte (analytics anonymes Vercel) + ce qu'on ne collecte pas + tiers (Vercel/unpkg/Google Fonts)
+- `app/sitemap.ts` : sitemap.xml dynamique avec `dynamic = "force-static"` (requis par output: export)
+- `app/opengraph-image.tsx` : OG image 1200×630 dynamique via next/og — gradient dark + titre + tagline + 3 USPs (force-static)
+- `public/robots.txt` : `Allow: /` + Sitemap
+- `npm install @vercel/analytics` + `<Analytics />` ajouté dans `layout.tsx`
+- Header ClipCraft : ajout lien `/privacy`
+- Build final : 7 pages statiques générées (incl. /privacy, /sitemap.xml, /opengraph-image)
+
+**[18:00] [PHASE 5] Contenu de lancement (9 fichiers dans docs/LAUNCH/)**
+- `launch-checklist.md` : timing J-3 / J-1 / J0 / J+1-7, ordre exact des publications (PH 00:01 PST → HN 8h UTC → Twitter 10h → Reddit×3 → IH → LinkedIn), métriques à suivre, critères pivot J+10
+- `show-hn.md` : title optimisé (Show HN: ClipCraft – Convert videos to GIF/MP3 in your browser, zero upload), body sans markdown (HN), first reply prep, 4 réponses anticipées (HandBrake, ezgif, Modfy, SAB)
+- `reddit-r-sideproject.md` : title indie story, body retrospective avec 4 lessons learned (output:export+headers, COEP credentialless, force-static, 25Mo UX)
+- `reddit-r-webdev.md` : 2 variantes de title (Showcase Saturday + technical), focus sur les 3 gotchas Next 16 + privacy framing
+- `reddit-r-privacy.md` : framing "tool I built because of THIS problem", verification step-by-step DevTools, 4 réponses anticipées (trust, Vercel IP, ffmpeg.wasm vs WebCodecs, future-proofing)
+- `twitter-thread.md` : 9 tweets, hook GIF sans lien tweet 1, demo + DevTools screenshot, build story tweet 6, CTA Ko-fi tweet 9
+- `product-hunt.md` : tagline 60 chars max, description 260 chars max, long description, maker's first comment (2min post-launch), réponses anticipées
+- `indie-hackers.md` : story 14 days / $0, tableau économie ($0/mo structurel), 4 "what I'd do differently", 3 questions ouvertes pour la communauté
+- `linkedin.md` : ton pro + humain, 3 lessons positionnées comme insights professionnels, hashtags #indiehackers #webassembly #buildinpublic #saas #privacy
+
+**Total contenu rédigé Phase 5** : ~6 000 mots de copy marketing prêt-à-coller, tailored canal par canal (chaque post adapté à la culture du sub/site).
+
+**État final J1** : Phases 0, 1, 2, 3, 4 (toutes sous-phases), 5 livrées. Seules **Phase 6 (itération data-driven post-lancement)** et le **deploy** restent. Le deploy nécessite les comptes humains (GitHub + Vercel + Ko-fi).
+
+**Apprentissage majeur J1** : tout le travail "déterministe" (idéation, archi, code MVP, SEO, contenu marketing) peut être bouclé en 1 session ~6-7h en autonome. Les bottlenecks réels sont les actions humaines (création comptes, validation OAuth, choix subjectifs sur design/naming) — moins critiques que je pensais. La discipline "anti-bikeshedding" du brief était la bonne intuition.
+
