@@ -5,13 +5,18 @@
 - **Signups / utilisateurs actifs**
 - **Revenu** (€, via Ko-fi/Gumroad/Polar)
 
+**URLs live** :
+- App : https://clipcraft-app.vercel.app
+- Repo : https://github.com/FreemaX94/clipcraft
+- Analytics dashboard : Vercel → Project "clipcraft" → Analytics tab
+
 ---
 
 ## Tableau quotidien
 
 | Date | Jour | Visiteurs uniques | Signups | Utilisateurs actifs | Revenu (€) | Source principale |
 |------|------|-------------------|---------|---------------------|------------|-------------------|
-| 2026-05-23 | J1 | 0 | 0 | 0 | 0 | — (pre-MVP, Phases 0→4.3 livrées localement) |
+| 2026-05-23 | J1 | 0 | 0 | 0 | 0 | 🚀 **DEPLOY LIVE** — phases 0→5 livrées, repo et site publics |
 
 ---
 

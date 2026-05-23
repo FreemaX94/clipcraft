@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://clipcraft.vercel.app/sitemap.xml
+Sitemap: https://clipcraft-app.vercel.app/sitemap.xml

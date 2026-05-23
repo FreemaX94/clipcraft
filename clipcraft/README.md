@@ -4,7 +4,7 @@
 
 ClipCraft is an in-browser video toolkit. Drop any video and get a GIF, an MP3 extract, a compressed clip, or a converted format. Everything runs locally via [`ffmpeg.wasm`](https://github.com/ffmpegwasm/ffmpeg.wasm). Your file never reaches a server.
 
-**Live**: [clipcraft.vercel.app](https://clipcraft.vercel.app) *(coming soon)*
+**Live**: [clipcraft-app.vercel.app](https://clipcraft-app.vercel.app)
 
 ## What it does
 

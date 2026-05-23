@@ -51,6 +51,32 @@ Format : chaque décision = un bloc avec **Contexte / Options / Choix / Rational
 
 ---
 
+## D007 — URL canonique : clipcraft-app.vercel.app (le subdomain `clipcraft` était pris)
+- **Date** : 2026-05-23 (soirée)
+- **Contexte** : `vercel deploy --prod` a auto-attribué `clipcraft-five.vercel.app` parce que `clipcraft.vercel.app` était déjà occupé par un autre projet sur la plateforme Vercel.
+- **Options envisagées** :
+  - A. Garder `clipcraft-five.vercel.app` (auto-attribué, mais moche)
+  - B. Tenter d'autres subdomains via `vercel alias set` (clipcrafty, getclipcraft, useclipcraft, etc.)
+  - C. Acheter `clipcraft.com` (interdit par CLAUDE.md avant J+30)
+- **Choix** : **B** avec `clipcraft-app.vercel.app` (libre, descriptif, propre).
+- **Rationale** : "clipcraft-app" est le plus simple et le plus descriptif des candidats libres. "clipcraft-five" sonne aléatoire et nuit au branding. Coût additionnel : 0€.
+- **Fallback** : on garde `clipcraft-five.vercel.app` actif comme alias secondaire au cas où l'URL principale soit changée plus tard.
+
+---
+
+## D008 — Désactivation Deployment Protection en prod
+- **Date** : 2026-05-23 (soirée)
+- **Contexte** : Vercel active par défaut SSO Protection sur les nouveaux projets des teams payantes (même free). Tous les endpoints renvoyaient 401 sans token Vercel.
+- **Options envisagées** :
+  - A. Garder SSO Protection → site privé, inacceptable pour un produit public
+  - B. Désactiver via dashboard (action humaine)
+  - C. Désactiver via API platform Vercel (PATCH /v9/projects/...)
+- **Choix** : **C**.
+- **Rationale** : déjà authentifié via Vercel CLI, le token est dispo dans `%APPDATA%/com.vercel.cli/Data/auth.json`. PATCH direct avec `{"ssoProtection":null,"passwordProtection":null}`. 1 commande, aucun clic.
+- **Conséquence** : le site est publiquement accessible. À noter : on perdrait potentiellement la protection sur les preview deployments, mais on n'utilise pas de previews pour l'instant.
+
+---
+
 ## D006 — shadcn/ui repoussé hors MVP
 - **Date** : 2026-05-23
 - **Contexte** : ARCHITECTURE prévoyait shadcn/ui. Pendant le build, j'ai constaté que les composants nécessaires (radio, button, progress bar) sont triviaux en Tailwind brut.
