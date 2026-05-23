@@ -46,7 +46,7 @@ Stack:
 - Tailwind v4 for the UI
 - No backend, no database, no accounts. ~1.1 MB initial bundle.
 
-The whole thing is open source: https://github.com/freemanlopez94140/clipcraft
+The whole thing is open source: https://github.com/FreemaX94/clipcraft
 
 Try it: https://clipcraft.vercel.app
 

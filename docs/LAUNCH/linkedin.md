@@ -30,7 +30,7 @@ Three lessons from the build:
 3. WebAssembly has quietly become serious. The browser can run ffmpeg at near-native speed. Things that "needed a backend" five years ago no longer do.
 
 If you want to try it: clipcraft.vercel.app
-Open source: github.com/freemanlopez94140/clipcraft
+Open source: github.com/FreemaX94/clipcraft
 
 I'd love feedback from anyone who's launched a $0-stack product and learned what works for distribution. Comments open ↓
 ```

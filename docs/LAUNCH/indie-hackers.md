@@ -21,7 +21,7 @@ I'm sharing my launch from yesterday. The goal was to validate whether you can s
 
 **What it is**: ClipCraft (https://clipcraft.vercel.app) — drop a video, get a GIF / MP3 / compressed clip / converted format. Everything runs in your browser via ffmpeg.wasm. Your file never reaches a server.
 
-**Open source**: https://github.com/freemanlopez94140/clipcraft
+**Open source**: https://github.com/FreemaX94/clipcraft
 
 ---
 

@@ -117,7 +117,7 @@ export default function PrivacyPage() {
             Found a privacy bug or want to suggest an improvement? Open an issue
             on{" "}
             <a
-              href="https://github.com/freemanlopez94140/clipcraft"
+              href="https://github.com/FreemaX94/clipcraft"
               className="underline hover:text-zinc-900 dark:hover:text-zinc-100"
               target="_blank"
               rel="noopener noreferrer"

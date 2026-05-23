@@ -2,7 +2,7 @@
 
 **Version** : 0.1 (draft initial, J1)
 **Date** : 2026-05-23
-**Auteur** : Claude (mode autonome) + freemanlopez94140@gmail.com
+**Auteur** : Claude (mode autonome) + FreemaX94@gmail.com
 
 ---
 

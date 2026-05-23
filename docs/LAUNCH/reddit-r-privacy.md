@@ -37,7 +37,7 @@ The "trust" question is fair, so the design lets you verify yourself:
 4. Run any conversion (GIF / audio extract / compress / format convert)
 5. **You will see zero outgoing requests carrying your file.** The only requests are the initial app load and a one-time ~25MB download of the open-source ffmpeg engine from a public CDN.
 
-The code is open source: https://github.com/freemanlopez94140/clipcraft — you can also clone and run locally with no internet.
+The code is open source: https://github.com/FreemaX94/clipcraft — you can also clone and run locally with no internet.
 
 What it collects:
 - Anonymous page views (Vercel Analytics — no IP, no cookies, blockable with uBlock)

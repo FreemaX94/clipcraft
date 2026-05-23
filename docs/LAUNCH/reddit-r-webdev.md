@@ -22,7 +22,7 @@ TIL: you can run ffmpeg in the browser and skip your server entirely. Here's how
 
 ```markdown
 **Live**: https://clipcraft.vercel.app
-**Repo**: https://github.com/freemanlopez94140/clipcraft
+**Repo**: https://github.com/FreemaX94/clipcraft
 
 I wanted to build a "online video converter" without the usual paywall/upload/watermark tax. Turned out you can just run ffmpeg in the browser now (`ffmpeg.wasm` is mature enough as of 2026). Here are the interesting bits:
 

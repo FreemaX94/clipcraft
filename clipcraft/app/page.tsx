@@ -359,7 +359,7 @@ export default function Home() {
               Privacy
             </a>
             <a
-              href="https://github.com/freemanlopez94140/clipcraft"
+              href="https://github.com/FreemaX94/clipcraft"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:text-zinc-900 dark:hover:text-zinc-100 transition-colors"

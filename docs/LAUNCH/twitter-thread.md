@@ -106,7 +106,7 @@ Stack:
 - Vercel Hobby (free tier)
 - Zero backend, zero database, zero auth
 
-Open source: github.com/freemanlopez94140/clipcraft
+Open source: github.com/FreemaX94/clipcraft
 ```
 
 ---
@@ -141,7 +141,7 @@ Tech notes for the curious:
 ```
 If you find this useful:
 
-⭐ Star the repo: github.com/freemanlopez94140/clipcraft
+⭐ Star the repo: github.com/FreemaX94/clipcraft
 🔁 RT this thread (helps a ton for indie projects)
 ☕ ko-fi.com/clipcraft (zero pressure, just an option)
 

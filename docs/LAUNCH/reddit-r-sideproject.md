@@ -25,7 +25,7 @@ Hey r/SideProject 👋
 For the past two weeks I've been building **ClipCraft** — a video to GIF / MP3 / compress / convert tool that runs entirely in the browser using `ffmpeg.wasm`. Your file never leaves your laptop.
 
 **Live**: https://clipcraft.vercel.app
-**Code**: https://github.com/freemanlopez94140/clipcraft
+**Code**: https://github.com/FreemaX94/clipcraft
 
 ### The why
 

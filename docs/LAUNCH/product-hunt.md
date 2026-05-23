@@ -67,7 +67,7 @@ Stronger than any "we promise we don't keep your data" privacy policy.
 - No usage limits
 - Anonymous analytics only (Vercel Analytics — no cookies, blockable)
 
-Open source on GitHub: https://github.com/freemanlopez94140/clipcraft
+Open source on GitHub: https://github.com/FreemaX94/clipcraft
 
 **Tech, briefly**
 
