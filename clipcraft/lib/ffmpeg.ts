@@ -119,13 +119,16 @@ export const TOOLS: ToolMeta[] = [
 
 // ----- GIF presets -----
 
+export type GifAspect = "original" | "vertical" | "square";
+
 export type GifPreset = {
-  id: "twitter" | "discord" | "high";
+  id: "twitter" | "discord" | "high" | "tiktok" | "instagram";
   label: string;
   description: string;
   fps: number;
   scale: number;
   maxColors: number;
+  aspect: GifAspect;
 };
 
 export const GIF_PRESETS: GifPreset[] = [
@@ -136,6 +139,7 @@ export const GIF_PRESETS: GifPreset[] = [
     fps: 12,
     scale: 480,
     maxColors: 64,
+    aspect: "original",
   },
   {
     id: "discord",
@@ -144,6 +148,7 @@ export const GIF_PRESETS: GifPreset[] = [
     fps: 15,
     scale: 540,
     maxColors: 128,
+    aspect: "original",
   },
   {
     id: "high",
@@ -152,13 +157,50 @@ export const GIF_PRESETS: GifPreset[] = [
     fps: 20,
     scale: 720,
     maxColors: 256,
+    aspect: "original",
+  },
+  {
+    id: "tiktok",
+    label: "TikTok / Reels (9:16)",
+    description: "Vertical crop, 480x854, optimized for mobile feeds",
+    fps: 15,
+    scale: 480,
+    maxColors: 96,
+    aspect: "vertical",
+  },
+  {
+    id: "instagram",
+    label: "Instagram Square (1:1)",
+    description: "Square crop, 540x540, ready for the grid",
+    fps: 15,
+    scale: 540,
+    maxColors: 96,
+    aspect: "square",
   },
 ];
 
+function aspectPrefix(aspect: GifAspect, scale: number): string {
+  // The aspect prefix runs BEFORE fps + palette filters.
+  // It uses scale+crop to force the target aspect ratio.
+  switch (aspect) {
+    case "vertical": {
+      // 9:16, e.g. 480x854. Keep `scale` as the WIDTH.
+      const targetH = Math.round((scale * 16) / 9);
+      return `scale=${scale}:${targetH}:force_original_aspect_ratio=increase,crop=${scale}:${targetH}`;
+    }
+    case "square": {
+      return `scale=${scale}:${scale}:force_original_aspect_ratio=increase,crop=${scale}:${scale}`;
+    }
+    case "original":
+    default:
+      return `scale=${scale}:-1:flags=lanczos`;
+  }
+}
+
 export function buildGifFilter(preset: GifPreset): string {
-  const { fps, scale, maxColors } = preset;
+  const { fps, scale, maxColors, aspect } = preset;
   return (
-    `fps=${fps},scale=${scale}:-1:flags=lanczos,split[s0][s1];` +
+    `${aspectPrefix(aspect, scale)},fps=${fps},split[s0][s1];` +
     `[s0]palettegen=max_colors=${maxColors}[p];` +
     `[s1][p]paletteuse=dither=bayer:bayer_scale=5`
   );
