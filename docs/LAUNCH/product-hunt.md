@@ -116,10 +116,10 @@ I'm the maker. A few things I want to flag upfront:
 3. What formats / presets did I miss? (I'd love to add 9:16 vertical for IG/TikTok next.)
 
 **Roadmap**:
-- Vertical / square presets for non-GIF tools (already on GIF — extending to MP4 compress/convert)
 - Concat multiple clips into one GIF
 - Frame extraction (PNG sequence)
-- Maybe a desktop-class PWA install (manifest already in place)
+- Speed control also on the Audio tool
+- Maybe a desktop-class PWA install (manifest already in place, missing service worker)
 
 Happy to answer any questions about the implementation, the architecture, or the privacy threat model.
 

@@ -71,9 +71,9 @@ ffmpeg.wasm is on unpkg so it doesn't count.
 
 ### What's next
 
-- Vertical/square crops extended to MP4 compress/convert (currently only GIF)
 - Concat multiple clips into one GIF
 - Frame extraction (PNG sequence)
+- PWA install with offline support (service worker)
 - Maybe: speed of audio-extract too (currently audio tool intentionally skips speed)
 
 Would love feedback. The angles I'm worried about:
