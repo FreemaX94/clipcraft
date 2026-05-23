@@ -438,18 +438,21 @@ export function buildAudioArgs(
   outputName: string,
   preset: AudioPreset,
   trim: TrimRange | null,
+  speed: SpeedOption | null = null,
 ): string[] {
-  return [
-    ...trimArgs(trim),
-    "-i",
-    inputName,
-    "-vn",
+  const args = [...trimArgs(trim), "-i", inputName, "-vn"];
+  if (speed && speed.factor !== 1) {
+    // Re-time audio without changing pitch (chained atempo handles 4x / 0.5x)
+    args.push("-af", audioSpeedFilter(speed.factor));
+  }
+  args.push(
     "-c:a",
     "libmp3lame",
     "-b:a",
     preset.bitrate,
     outputName,
-  ];
+  );
+  return args;
 }
 
 // ----- Video aspect ratio (used by Compress, Convert — GIF handles aspect via its presets) -----

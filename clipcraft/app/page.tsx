@@ -309,8 +309,13 @@ export default function Home() {
           );
           break;
         case "audio":
-          // Audio tool does not expose the speed control (rarely useful for MP3 extracts)
-          args = buildAudioArgs(inputName, outputName, audioPreset, trimArg);
+          args = buildAudioArgs(
+            inputName,
+            outputName,
+            audioPreset,
+            trimArg,
+            speedEnabled ? speed : null,
+          );
           break;
         case "compress":
           args = buildCompressArgs(
@@ -671,7 +676,7 @@ export default function Home() {
                       </div>
                     )}
 
-                    {tool !== "audio" && tool !== "snapshot" && (
+                    {tool !== "snapshot" && (
                       <div className="border border-zinc-200 dark:border-zinc-800 rounded-xl p-3 flex flex-col gap-3">
                         <label className="flex items-center gap-2 text-sm font-medium cursor-pointer">
                           <input
