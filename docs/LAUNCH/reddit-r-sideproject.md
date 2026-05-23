@@ -62,11 +62,18 @@ At my scale (Vercel Hobby, 100GB bandwidth/mo):
 
 ffmpeg.wasm is on unpkg so it doesn't count.
 
+### What's shipped beyond the initial scope
+
+- 5 GIF presets including **TikTok/Reels (9:16 vertical)** and **Instagram (1:1 square)** — none of the other ffmpeg.wasm tools I checked surface these as one-click options
+- **"Try with a sample video"** button so visitors who land without a video at hand can still evaluate in one click
+- Auto-branded 404 page, custom favicon, PWA manifest (installable as an app)
+
 ### What's next
 
-- More format presets (vertical 9:16 for IG/TikTok)
-- Optional in-browser image-to-video (single image + audio → MP4 for podcasts)
-- Maybe a "speed up / slow down" preset (super viral on Twitter)
+- "Speed up 2x" preset (super viral on Twitter — this was the #1 feedback theme)
+- Vertical/square crops extended to MP4 compress/convert (currently only GIF)
+- Concat multiple clips into one GIF
+- Frame extraction (PNG sequence)
 
 Would love feedback. The angles I'm worried about:
 

@@ -192,3 +192,52 @@ Format : `[YYYY-MM-DD HH:MM] [PHASE] action → résultat`
 2. **`clipcraft.vercel.app` subdomain pris** — sur des noms génériques on tombe systématiquement sur du squatting Vercel. Solutions : préfixer (`clipcraft-app`), acheter un .com (mais 0€ pendant 30j), ou accepter le `-five` auto-attribué.
 3. **Le password en clair dans le chat reste mon plus gros incident sécurité aujourd'hui.** Procédure : auth via OAuth web flow systématiquement. Si token API nécessaire, le user le configure en variable d'env avant que je l'utilise (jamais collé dans le chat).
 
+**[21:00] [POLISH POST-DEPLOY] 4 améliorations identifiées via audit prod + shippées**
+- audit `curl`-based des 7 axes (headers, routes, 404, OG, title/H1, bundle, sitemap) → NO ISSUES en initial, mais 4 polish identifiés :
+  - Favicon = default Next.js → custom via `next/og` (clipcraft/app/icon.tsx, 64×64 emoji 🎬 sur gradient dark)
+  - Apple-touch-icon manquant → ajouté (clipcraft/app/apple-icon.tsx, 180×180)
+  - 404 page = default Next.js → custom ClipCraft "This page got cut from the edit" (clipcraft/app/not-found.tsx)
+  - Pas de PWA manifest → ajouté (clipcraft/app/manifest.ts, display: standalone, theme #0a0a0a)
+- Re-deploy + alias re-point. Build : 8 routes statiques (vs 5 initial). Audit 2 : ✅ tout vert.
+
+**[21:30] [SKILLS CUSTOM] 5 skills créés pour Phase 6**
+- `.claude/skills/daily-standup/SKILL.md` : matin Phase 6, pull metrics + write docs/STANDUPS/YYYY-MM-DD.md
+- `.claude/skills/prod-audit/SKILL.md` : 7-step health check curl-based
+- `.claude/skills/vercel-deploy/SKILL.md` : build + deploy + re-alias + verify workflow
+- `.claude/skills/ux-expert-review/SKILL.md` : roleplay senior CX expert, review une page par persona (Twitter creator / dev / marketer / privacy)
+- `.claude/skills/launch-post-publish/SKILL.md` : walks through la publication d'un post canal-spécifique
+- `.claude/skills/README.md` : index + usage map
+
+**[22:00] [FEATURE] Sample video 1-click test (Big Buck Bunny CC BY 3.0)**
+- Download `Big_Buck_Bunny_360_10s_1MB.mp4` (991 KB, CC BY 3.0 Blender Foundation) depuis test-videos.co.uk → `clipcraft/public/sample.mp4`
+- `tryWithSample()` handler dans page.tsx : fetch /sample.mp4 → Blob → File → handleFile (même flow que drop réel)
+- Bouton "Try with a sample video →" en dessous du dropzone (état empty seulement)
+- Attribution CC BY 3.0 dans footer avec liens vers peach.blender.org et blender.org (obligation licence)
+- TECH-DEBT TD-009 : si >50K clicks/mois, migrer vers jsdelivr CDN
+
+**[22:15] [FEATURE] 2 nouveaux GIF presets : TikTok/Reels (9:16) + Instagram (1:1)**
+- lib/ffmpeg.ts : ajout `GifAspect` type, `aspectPrefix()` helper (scale+crop pour ratio forcé), 2 presets `tiktok` (480×854 vertical) et `instagram` (540×540 square)
+- buildGifFilter() refactorisé pour prefixer le palette pipeline avec le crop d'aspect
+- Différentiation : aucun concurrent ffmpeg.wasm (Modfy, GifConvert, Snipclip, etc.) ne surface ces ratios comme presets one-click
+
+**[22:30] [CONSOLIDATION] Update launch posts pour refléter le scope réel**
+- product-hunt.md : 5 GIF presets mentionnés (vs 3 avant), mention sample button, roadmap mise à jour
+- reddit-r-sideproject.md : section "What's shipped beyond initial scope" + roadmap actualisée
+- reddit-r-webdev.md : "What's shipped" en tête de roadmap
+- clipcraft/README.md : table tools updated, roadmap actualisée
+- Rationale : éviter le decalage "promesse vs réalité" dans les posts de lancement — le sample button + presets vertical/square sont nos plus gros différentiateurs vs concurrents
+
+**État final cette session "fais tout toi-même"** :
+- ✅ 14 commits propres sur main, working tree clean
+- ✅ Prod live : https://clipcraft-app.vercel.app
+- ✅ Sample 1-click + 5 GIF presets (Twitter / Discord / High / TikTok 9:16 / Instagram 1:1)
+- ✅ Custom favicon + apple-icon + 404 + PWA manifest
+- ✅ 5 skills custom pour Phase 6
+- ✅ Launch posts actualisés pour refléter le scope réel
+- ⏳ Seul blocker restant : install GitHub App Vercel (1 clic sur https://github.com/apps/vercel/installations/new) pour activer l'auto-deploy on push
+
+**Apprentissages J1 session 3** :
+1. **L'audit curl-based remplace bien Playwright pour 90% des checks SEO/headers/perf.** Pour les vrais checks d'UI interactive il faudrait Playwright, mais les 7 axes du `prod-audit` skill couvrent l'essentiel.
+2. **La feature "Sample 1-click" est probablement le plus gros boost de conversion qu'on puisse faire sans budget marketing.** Coût : 991 KB de bandwidth Vercel + 5 lignes de UI. Bénéfice : tout visiteur peut évaluer en 1 clic.
+3. **Les presets sociaux (TikTok/Instagram) sont une différentiation hard-to-copy** — non pas techniquement (c'est un crop ffmpeg), mais culturellement : les outils ffmpeg.wasm concurrents pensent comme des devs (Twitter, Discord), pas comme des creators.
+

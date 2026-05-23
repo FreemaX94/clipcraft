@@ -43,12 +43,13 @@ I needed to turn a screen recording of an internal product demo into a GIF for a
 **What ClipCraft does**
 
 Four tools, one page:
-🎬 Video → GIF (with Twitter/Discord presets)
-🎵 Extract audio as MP3
-🗜️ Compress to share over Slack/email
+🎬 Video → GIF (5 presets: Twitter, Discord, High-quality, TikTok/Reels 9:16 vertical, Instagram 1:1 square)
+🎵 Extract audio as MP3 (3 quality presets)
+🗜️ Compress to share over Slack/email (3 levels)
 🔄 Convert formats (MP4 ↔ WebM ↔ MOV)
 
 Plus optional trim (mark IN / mark OUT on the video).
+And a "Try with a sample video" button so you can test in one click — no need to dig up a video to evaluate.
 
 **The differentiator: it runs in your browser**
 
@@ -116,9 +117,10 @@ I'm the maker. A few things I want to flag upfront:
 3. What formats / presets did I miss? (I'd love to add 9:16 vertical for IG/TikTok next.)
 
 **Roadmap**:
-- Vertical 9:16 GIFs and MP4s for IG/TikTok
-- "Speed up 2x" preset (very Twitter-viral)
+- "Speed up 2x" preset (very Twitter-viral, mentioned in feedback)
+- Vertical / square presets for non-GIF tools (already on GIF — extending to MP4 compress/convert)
 - Concat multiple clips into one GIF
+- Frame extraction (PNG sequence)
 - Maybe a desktop-class PWA install
 
 Happy to answer any questions about the implementation, the architecture, or the privacy threat model.

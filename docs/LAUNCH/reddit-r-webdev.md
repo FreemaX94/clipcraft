@@ -76,7 +76,7 @@ Open DevTools → Network → drop a video → convert. You see ONE initial fetc
 - Is there a format / preset I'm missing? (I've got Twitter-optimized GIF, Discord GIF, MP3 extract, 3 compress levels, MP4↔WebM↔MOV)
 - The trim UX uses "Mark IN / Mark OUT" buttons that capture the video element's currentTime. Workable, or should I bite the bullet and build a proper dual-handle slider?
 
-Roadmap: vertical 9:16 GIFs for IG/TikTok, "speed up 2x" preset for Twitter virals, optional concat (multiple clips into one GIF).
+What's shipped: 5 GIF presets including TikTok/Reels (9:16) and Instagram (1:1), 1-click sample video so visitors can test without bringing their own file. Roadmap: "speed up 2x" preset for Twitter virals, vertical/square for non-GIF tools, concat (multiple clips into one GIF), frame extraction.
 ```
 
 ---
