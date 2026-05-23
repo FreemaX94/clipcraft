@@ -3,7 +3,7 @@ import type { MetadataRoute } from "next";
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://clipcraft-app.vercel.app";
+  const base = "https://clipcraftapp.vercel.app";
   const lastModified = new Date("2026-05-23");
   return [
     {

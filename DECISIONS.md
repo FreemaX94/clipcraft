@@ -51,14 +51,14 @@ Format : chaque décision = un bloc avec **Contexte / Options / Choix / Rational
 
 ---
 
-## D007 — URL canonique : clipcraft-app.vercel.app (le subdomain `clipcraft` était pris)
+## D007 — URL canonique : clipcraftapp.vercel.app (le subdomain `clipcraft` était pris)
 - **Date** : 2026-05-23 (soirée)
 - **Contexte** : `vercel deploy --prod` a auto-attribué `clipcraft-five.vercel.app` parce que `clipcraft.vercel.app` était déjà occupé par un autre projet sur la plateforme Vercel.
 - **Options envisagées** :
   - A. Garder `clipcraft-five.vercel.app` (auto-attribué, mais moche)
   - B. Tenter d'autres subdomains via `vercel alias set` (clipcrafty, getclipcraft, useclipcraft, etc.)
   - C. Acheter `clipcraft.com` (interdit par CLAUDE.md avant J+30)
-- **Choix** : **B** avec `clipcraft-app.vercel.app` (libre, descriptif, propre).
+- **Choix** : **B** avec `clipcraftapp.vercel.app` (libre, descriptif, propre).
 - **Rationale** : "clipcraft-app" est le plus simple et le plus descriptif des candidats libres. "clipcraft-five" sonne aléatoire et nuit au branding. Coût additionnel : 0€.
 - **Fallback** : on garde `clipcraft-five.vercel.app` actif comme alias secondaire au cas où l'URL principale soit changée plus tard.
 

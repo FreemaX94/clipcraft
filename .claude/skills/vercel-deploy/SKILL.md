@@ -1,6 +1,6 @@
 ---
 name: vercel-deploy
-description: Clean Vercel production deploy workflow. Builds, deploys, re-points the canonical alias (clipcraft-app.vercel.app) to the new deployment, and verifies headers. Use after any code change to ship. Replaces the manual 3-step vercel deploy + alias set + curl verify dance.
+description: Clean Vercel production deploy workflow. Builds, deploys, re-points the canonical alias (clipcraftapp.vercel.app) to the new deployment, and verifies headers. Use after any code change to ship. Replaces the manual 3-step vercel deploy + alias set + curl verify dance.
 ---
 
 # Vercel Deploy — ClipCraft
@@ -38,15 +38,15 @@ If the build fails on Vercel side, run `vercel inspect <deployment-url> --logs` 
 ### Step 3 — Re-point the canonical alias
 
 ```bash
-vercel alias set <new-deployment-url> clipcraft-app.vercel.app
+vercel alias set <new-deployment-url> clipcraftapp.vercel.app
 ```
 
-Without this step, the new deployment is live at its random URL but `clipcraft-app.vercel.app` still points at the previous one.
+Without this step, the new deployment is live at its random URL but `clipcraftapp.vercel.app` still points at the previous one.
 
 ### Step 4 — Quick verify
 
 ```bash
-curl -sI https://clipcraft-app.vercel.app | grep -iE "HTTP|cross-origin"
+curl -sI https://clipcraftapp.vercel.app | grep -iE "HTTP|cross-origin"
 ```
 
 Must see HTTP 200 + COOP/COEP. If 401, Deployment Protection has been re-enabled — disable via:
@@ -67,7 +67,7 @@ Invoke the `prod-audit` skill for the full 7-step verification.
 
 Report:
 - "Deployed to `<new-deployment-url>` (build OK in Xs)"
-- "Canonical alias re-pointed to `clipcraft-app.vercel.app`"
+- "Canonical alias re-pointed to `clipcraftapp.vercel.app`"
 - "Verified HTTP 200 + COOP/COEP"
 - (If audit run) "prod-audit: NO ISSUES" or list of anomalies
 

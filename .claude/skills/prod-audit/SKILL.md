@@ -1,6 +1,6 @@
 ---
 name: prod-audit
-description: Runs a full production health audit on https://clipcraft-app.vercel.app. Checks HTTP/headers, cross-origin isolation, all key routes (/, /privacy, /sitemap.xml, /robots.txt, /opengraph-image, /icon, /apple-icon, /manifest.webmanifest), OG meta tags, JS bundle sizes, 404 page. Reports anomalies and suggests fixes. Use before any launch milestone or weekly during Phase 6.
+description: Runs a full production health audit on https://clipcraftapp.vercel.app. Checks HTTP/headers, cross-origin isolation, all key routes (/, /privacy, /sitemap.xml, /robots.txt, /opengraph-image, /icon, /apple-icon, /manifest.webmanifest), OG meta tags, JS bundle sizes, 404 page. Reports anomalies and suggests fixes. Use before any launch milestone or weekly during Phase 6.
 ---
 
 # Production Audit — ClipCraft
@@ -22,7 +22,7 @@ Execute the audit script below and report findings.
 
 ```bash
 echo "=== / headers ===" 
-curl -sI https://clipcraft-app.vercel.app/ | grep -iE "HTTP|cross-origin|strict-transport|x-content|cache-control|x-vercel-cache"
+curl -sI https://clipcraftapp.vercel.app/ | grep -iE "HTTP|cross-origin|strict-transport|x-content|cache-control|x-vercel-cache"
 ```
 
 **Must see:**
@@ -40,7 +40,7 @@ curl -sI https://clipcraft-app.vercel.app/ | grep -iE "HTTP|cross-origin|strict-
 
 ```bash
 for path in / /privacy /sitemap.xml /robots.txt /opengraph-image /icon /apple-icon /manifest.webmanifest; do
-  code=$(curl -sI "https://clipcraft-app.vercel.app$path" -o /dev/null -w "%{http_code}")
+  code=$(curl -sI "https://clipcraftapp.vercel.app$path" -o /dev/null -w "%{http_code}")
   echo "$code  $path"
 done
 ```
@@ -50,7 +50,7 @@ done
 ### Step 3 — 404 returns the custom branded page
 
 ```bash
-curl -s https://clipcraft-app.vercel.app/not-a-real-page | grep -c "got cut from the edit"
+curl -s https://clipcraftapp.vercel.app/not-a-real-page | grep -c "got cut from the edit"
 ```
 
 Must return `1` (the branded copy is present). If 0, the not-found.tsx isn't being picked up.
@@ -58,7 +58,7 @@ Must return `1` (the branded copy is present). If 0, the not-found.tsx isn't bei
 ### Step 4 — OG meta tags integrity
 
 ```bash
-curl -s https://clipcraft-app.vercel.app/ | grep -oE '<meta (property|name)="(og:|twitter:)[^"]+" content="[^"]+"'
+curl -s https://clipcraftapp.vercel.app/ | grep -oE '<meta (property|name)="(og:|twitter:)[^"]+" content="[^"]+"'
 ```
 
 Should list at least: og:title, og:description, og:url, og:image, og:image:width=1200, og:image:height=630, twitter:card=summary_large_image, twitter:title, twitter:image.
@@ -66,8 +66,8 @@ Should list at least: og:title, og:description, og:url, og:image, og:image:width
 ### Step 5 — Title & H1 present
 
 ```bash
-curl -s https://clipcraft-app.vercel.app/ | grep -oE '<title[^>]*>[^<]+</title>'
-curl -s https://clipcraft-app.vercel.app/ | grep -oE '<h1[^>]*>[^<]+'
+curl -s https://clipcraftapp.vercel.app/ | grep -oE '<title[^>]*>[^<]+</title>'
+curl -s https://clipcraftapp.vercel.app/ | grep -oE '<h1[^>]*>[^<]+'
 ```
 
 Title should be: "ClipCraft — Convert, compress and GIF-ify videos in your browser".
@@ -76,8 +76,8 @@ H1 should start with "Convert, compress, GIF-ify videos."
 ### Step 6 — JS bundle size sanity check
 
 ```bash
-curl -s https://clipcraft-app.vercel.app/ | grep -oE 'src="/_next/static/chunks/[^"]+\.js"' | while read script; do
-  url="https://clipcraft-app.vercel.app${script#src=\"}"
+curl -s https://clipcraftapp.vercel.app/ | grep -oE 'src="/_next/static/chunks/[^"]+\.js"' | while read script; do
+  url="https://clipcraftapp.vercel.app${script#src=\"}"
   url="${url%\"}"
   size=$(curl -sI "$url" | grep -i content-length | grep -oE '[0-9]+')
   echo "$size $script"
@@ -89,18 +89,18 @@ Acceptable range: 500 KB – 800 KB uncompressed. Above 1 MB = investigate for b
 ### Step 7 — Sitemap & robots.txt point to canonical URL
 
 ```bash
-curl -s https://clipcraft-app.vercel.app/sitemap.xml | grep -c "clipcraft-app.vercel.app"
-curl -s https://clipcraft-app.vercel.app/robots.txt
+curl -s https://clipcraftapp.vercel.app/sitemap.xml | grep -c "clipcraftapp.vercel.app"
+curl -s https://clipcraftapp.vercel.app/robots.txt
 ```
 
-Sitemap should contain 2 URLs both with `clipcraft-app.vercel.app`. Robots.txt should `Allow: /` and reference the sitemap.
+Sitemap should contain 2 URLs both with `clipcraftapp.vercel.app`. Robots.txt should `Allow: /` and reference the sitemap.
 
 ## Output format
 
 After running all 7 steps, report in this format:
 
 ```
-PROD AUDIT — clipcraft-app.vercel.app — YYYY-MM-DD HH:MM UTC
+PROD AUDIT — clipcraftapp.vercel.app — YYYY-MM-DD HH:MM UTC
 
 ✅ Headers OK (COOP/COEP present)
 ✅ All 8 routes 200

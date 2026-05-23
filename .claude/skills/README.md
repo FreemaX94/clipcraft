@@ -5,7 +5,7 @@ Skills automating recurring workflows during Phase 6 (post-launch iteration).
 | Skill | When | What it does |
 |-------|------|--------------|
 | [daily-standup](./daily-standup/SKILL.md) | Every morning | Pulls metrics, writes `docs/STANDUPS/YYYY-MM-DD.md`, picks today's hypothesis + distribution action |
-| [prod-audit](./prod-audit/SKILL.md) | Weekly + before launch | 7-step health check on https://clipcraft-app.vercel.app (headers, routes, OG tags, bundle size) |
+| [prod-audit](./prod-audit/SKILL.md) | Weekly + before launch | 7-step health check on https://clipcraftapp.vercel.app (headers, routes, OG tags, bundle size) |
 | [vercel-deploy](./vercel-deploy/SKILL.md) | After any code change | Local build sanity → vercel deploy --prod → re-point canonical alias → verify |
 | [ux-expert-review](./ux-expert-review/SKILL.md) | Before launch / when metric is off | Reviews a page from a chosen persona's perspective, returns prioritized P0/P1/P2 issues |
 | [launch-post-publish](./launch-post-publish/SKILL.md) | On launch day (J0) | Walks through publishing one of the 9 prepared launch posts on HN/Reddit/PH/Twitter/etc. |

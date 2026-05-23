@@ -6,7 +6,7 @@
 - **Revenu** (€, via Ko-fi/Gumroad/Polar)
 
 **URLs live** :
-- App : https://clipcraft-app.vercel.app
+- App : https://clipcraftapp.vercel.app
 - Repo : https://github.com/FreemaX94/clipcraft
 - Analytics dashboard : Vercel → Project "clipcraft" → Analytics tab
 

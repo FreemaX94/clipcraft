@@ -52,7 +52,7 @@ See [`clipcraft/README.md`](./clipcraft/README.md) for full app details.
 ## Status
 
 🚀 **LIVE since 2026-05-23 (J1 evening)**.
-- App: **https://clipcraft-app.vercel.app**
+- App: **https://clipcraftapp.vercel.app**
 - Repo: **https://github.com/FreemaX94/clipcraft**
 - Fallback URL: https://clipcraft-five.vercel.app
 

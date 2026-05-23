@@ -32,7 +32,7 @@ Ask the user (or infer from message):
 Run `prod-audit` skill first. If it fails, **stop** — do not publish to a broken site.
 
 Check:
-- Is the URL `https://clipcraft-app.vercel.app` reachable and 200?
+- Is the URL `https://clipcraftapp.vercel.app` reachable and 200?
 - Is the OG image rendering? (open opengraph.xyz with the URL or curl the meta tags)
 - Are there any open issues on GitHub that would be embarrassing if linked in the post?
 

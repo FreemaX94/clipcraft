@@ -155,14 +155,14 @@ Format : `[YYYY-MM-DD HH:MM] [PHASE] action → résultat`
 - Mais : **Deployment Protection activée par défaut** sur les nouveaux projets de cette team → tout renvoyait 401
 
 **[20:15] [ALIAS] URL canonique propre**
-- Tentative de 6 subdomains, **`clipcraft-app.vercel.app` libre et attribué** comme URL canonique
+- Tentative de 6 subdomains, **`clipcraftapp.vercel.app` libre et attribué** comme URL canonique
 - 5 autres aliases nettoyés (`clipcrafty`, `getclipcraft`, `useclipcraft`, `clipcraft-tools`, `clipcraft-io`)
 - Garde l'auto-attribué `clipcraft-five.vercel.app` comme fallback
-- Sed bulk replace : tous les fichiers code + docs maintenant pointent vers `clipcraft-app.vercel.app`
+- Sed bulk replace : tous les fichiers code + docs maintenant pointent vers `clipcraftapp.vercel.app`
 
 **[20:30] [DEPLOY 2] Re-deploy avec URLs corrigées**
 - `vercel deploy --prod --yes` → nouveau deployment `clipcraft-17ea742t0-...`
-- Re-attache l'alias `clipcraft-app.vercel.app` au nouveau deployment
+- Re-attache l'alias `clipcraftapp.vercel.app` au nouveau deployment
 
 **[20:40] [PROD HARDENING] Désactivation Deployment Protection**
 - Problème : ssoProtection activé par défaut sur la team
@@ -179,7 +179,7 @@ Format : `[YYYY-MM-DD HH:MM] [PHASE] action → résultat`
 
 **🎉 ÉTAT FINAL J1** :
 - ✅ **Repo public** : https://github.com/FreemaX94/clipcraft
-- ✅ **App live** : https://clipcraft-app.vercel.app
+- ✅ **App live** : https://clipcraftapp.vercel.app
 - ✅ **Fallback URL** : https://clipcraft-five.vercel.app
 - ✅ Multi-thread ffmpeg.wasm activé (COOP+COEP en prod)
 - ✅ Privacy/sitemap/robots/OG image tous fonctionnels
@@ -229,7 +229,7 @@ Format : `[YYYY-MM-DD HH:MM] [PHASE] action → résultat`
 
 **État final cette session "fais tout toi-même"** :
 - ✅ 14 commits propres sur main, working tree clean
-- ✅ Prod live : https://clipcraft-app.vercel.app
+- ✅ Prod live : https://clipcraftapp.vercel.app
 - ✅ Sample 1-click + 5 GIF presets (Twitter / Discord / High / TikTok 9:16 / Instagram 1:1)
 - ✅ Custom favicon + apple-icon + 404 + PWA manifest
 - ✅ 5 skills custom pour Phase 6
@@ -249,5 +249,5 @@ Format : `[YYYY-MM-DD HH:MM] [PHASE] action → résultat`
 - DECISIONS.md D009 : trace de l'activation et du smoke test à venir
 - Task #13 (le seul blocker humain restant) → ✅ completed
 
-**🏁 BLOCKERS = 0**. Le système est pleinement autonome maintenant : commit → push → auto-deploy → publié sur clipcraft-app.vercel.app. Plus aucune friction entre code et prod.
+**🏁 BLOCKERS = 0**. Le système est pleinement autonome maintenant : commit → push → auto-deploy → publié sur clipcraftapp.vercel.app. Plus aucune friction entre code et prod.
 

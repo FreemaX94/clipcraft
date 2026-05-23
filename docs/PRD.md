@@ -10,7 +10,7 @@
 
 **Nom de code** : ClipCraft
 **Tagline** : *Convert, compress, and GIF-ify videos right in your browser. Zero upload. Forever free.*
-**URL cible (J+15)** : `clipcraft.vercel.app` (à confirmer si dispo, sinon `clipcraft-app.vercel.app`)
+**URL cible (J+15)** : `clipcraft.vercel.app` (à confirmer si dispo, sinon `clipcraftapp.vercel.app`)
 
 ## 2. Problème résolu
 

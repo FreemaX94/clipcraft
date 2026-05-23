@@ -46,7 +46,7 @@ Lancer un produit web utile en 100% free tier, atteindre **≥100 visiteurs uniq
 - **Coût à 10K users** : 0€ (statique pure sur Vercel)
 - **PRD complet** : [docs/PRD.md](docs/PRD.md)
 - **Date de lancement cible** : J+15 = 2026-06-07
-- **🌐 URL LIVE (depuis J1 soirée)** : https://clipcraft-app.vercel.app
+- **🌐 URL LIVE (depuis J1 soirée)** : https://clipcraftapp.vercel.app
 - **📦 Repo public** : https://github.com/FreemaX94/clipcraft
 
 ## Hypothèses spécifiques à ClipCraft
