@@ -11,7 +11,7 @@ ClipCraft is an in-browser video toolkit. Drop any video and get a GIF, an MP3 e
 | Tool | Output | Notes |
 |------|--------|-------|
 | Video → GIF | `.gif` | 5 presets: Twitter (5 MB), Discord (8 MB), High quality, TikTok/Reels (9:16 vertical), Instagram (1:1 square) |
-| Extract audio | `.mp3` | 3 bitrates: 192 / 128 / 96 kbps |
+| Extract audio | `.mp3` | 3 bitrates: 192 / 128 / 96 kbps (also supports speed control) |
 | Compress | `.mp4` (H.264) | 3 quality presets (Heavy/Balanced/Light) × 3 aspect ratios (Original/Vertical 9:16/Square 1:1) |
 | Convert format | `.mp4` / `.webm` / `.mov` | H.264 / VP9 / H.264, also × 3 aspect ratios |
 | Snapshot frame | `.png` | Single frame at the video's current playback time, full source resolution |
@@ -104,9 +104,8 @@ clipcraft/
 
 - Concat multiple clips into one GIF
 - Multi-frame extraction (zipped PNG sequence — single-frame already shipped via Snapshot)
-- PWA install with offline support (service worker)
 - Custom watermark removal area (paint-to-remove)
-- Speed control also on the Audio tool
+- Per-tool aspect ratio extended to Snapshot (currently full source resolution)
 
 ## Contributing
 

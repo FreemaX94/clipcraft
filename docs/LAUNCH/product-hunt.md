@@ -119,8 +119,8 @@ I'm the maker. A few things I want to flag upfront:
 **Roadmap**:
 - Concat multiple clips into one GIF
 - Multi-frame PNG sequence as a ZIP (single-frame snapshot already shipped)
-- Speed control also on the Audio tool
-- Maybe a desktop-class PWA install (manifest in place, missing service worker)
+- Custom watermark removal (paint-to-remove area)
+- Per-tool aspect ratio for the Snapshot tool (currently full source resolution)
 
 Happy to answer any questions about the implementation, the architecture, or the privacy threat model.
 

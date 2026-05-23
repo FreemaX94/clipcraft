@@ -74,9 +74,9 @@ ffmpeg.wasm is on unpkg so it doesn't count.
 ### What's next
 
 - Concat multiple clips into one GIF
-- Frame extraction (PNG sequence)
-- PWA install with offline support (service worker)
-- Maybe: speed of audio-extract too (currently audio tool intentionally skips speed)
+- Multi-frame extraction zipped (single-frame already shipped via Snapshot)
+- Custom watermark removal (paint-to-remove area)
+- Per-tool aspect ratio for the Snapshot tool
 
 Would love feedback. The angles I'm worried about:
 
