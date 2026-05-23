@@ -445,25 +445,78 @@ export function buildAudioArgs(
   ];
 }
 
+// ----- Video aspect ratio (used by Compress, Convert — GIF handles aspect via its presets) -----
+
+export type VideoAspect = "original" | "vertical" | "square";
+
+export const VIDEO_ASPECTS: { id: VideoAspect; label: string; description: string }[] = [
+  {
+    id: "original",
+    label: "Original",
+    description: "Keep the source aspect ratio",
+  },
+  {
+    id: "vertical",
+    label: "Vertical 9:16",
+    description: "Cropped for TikTok / Reels / Shorts (720×1280)",
+  },
+  {
+    id: "square",
+    label: "Square 1:1",
+    description: "Cropped for Instagram feed (720×720)",
+  },
+];
+
+/**
+ * Builds a scale+crop filter chain for the requested aspect ratio.
+ * For Compress / Convert we target 720px on the constrained axis to keep
+ * a reasonable resolution after the crop.
+ */
+function videoAspectFilter(aspect: VideoAspect): string | null {
+  if (aspect === "original") return null;
+  if (aspect === "vertical") {
+    return "scale=720:1280:force_original_aspect_ratio=increase,crop=720:1280";
+  }
+  // square
+  return "scale=720:720:force_original_aspect_ratio=increase,crop=720:720";
+}
+
+function composeFilter(parts: (string | null | undefined)[]): string {
+  return parts.filter(Boolean).join(",");
+}
+
 export function buildCompressArgs(
   inputName: string,
   outputName: string,
   preset: CompressPreset,
   trim: TrimRange | null,
   speed: SpeedOption | null = null,
+  aspect: VideoAspect = "original",
 ): string[] {
   const args = [...trimArgs(trim), "-i", inputName];
-  if (speed && speed.factor !== 1) {
-    // Re-time both streams without changing pitch
-    args.push(
-      "-filter_complex",
-      `[0:v]${videoSpeedFilter(speed.factor)}[v];[0:a]${audioSpeedFilter(speed.factor)}[a]`,
-      "-map",
-      "[v]",
-      "-map",
-      "[a]",
-    );
+  const hasSpeed = speed && speed.factor !== 1;
+  const hasAspect = aspect !== "original";
+
+  if (hasSpeed || hasAspect) {
+    // Compose a single video filter chain and a separate audio chain when speed is requested.
+    const vFilter = composeFilter([
+      hasSpeed ? videoSpeedFilter(speed!.factor) : null,
+      hasAspect ? videoAspectFilter(aspect) : null,
+    ]);
+    if (hasSpeed) {
+      args.push(
+        "-filter_complex",
+        `[0:v]${vFilter}[v];[0:a]${audioSpeedFilter(speed!.factor)}[a]`,
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+      );
+    } else {
+      args.push("-vf", vFilter);
+    }
   }
+
   args.push(
     "-c:v",
     "libx264",
@@ -486,20 +539,32 @@ export function buildConvertArgs(
   format: ConvertFormat,
   trim: TrimRange | null,
   speed: SpeedOption | null = null,
+  aspect: VideoAspect = "original",
 ): string[] {
   const args = [...trimArgs(trim), "-i", inputName];
-  if (speed && speed.factor !== 1) {
-    args.push(
-      "-filter_complex",
-      `[0:v]${videoSpeedFilter(speed.factor)}[v];[0:a]${audioSpeedFilter(speed.factor)}[a]`,
-      "-map",
-      "[v]",
-      "-map",
-      "[a]",
-    );
+  const hasSpeed = speed && speed.factor !== 1;
+  const hasAspect = aspect !== "original";
+
+  if (hasSpeed || hasAspect) {
+    const vFilter = composeFilter([
+      hasSpeed ? videoSpeedFilter(speed!.factor) : null,
+      hasAspect ? videoAspectFilter(aspect) : null,
+    ]);
+    if (hasSpeed) {
+      args.push(
+        "-filter_complex",
+        `[0:v]${vFilter}[v];[0:a]${audioSpeedFilter(speed!.factor)}[a]`,
+        "-map",
+        "[v]",
+        "-map",
+        "[a]",
+      );
+    } else {
+      args.push("-vf", vFilter);
+    }
   }
+
   if (format.id === "webm") {
-    // WebM needs explicit codecs; use VP9 with reasonable defaults
     args.push(
       "-c:v",
       format.videoCodec,

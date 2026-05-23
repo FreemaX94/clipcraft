@@ -10,6 +10,7 @@ import {
   COMPRESS_PRESETS,
   CONVERT_FORMATS,
   SPEED_OPTIONS,
+  VIDEO_ASPECTS,
   TOOLS,
   buildGifArgs,
   buildAudioArgs,
@@ -22,6 +23,7 @@ import {
   type CompressPreset,
   type ConvertFormat,
   type SpeedOption,
+  type VideoAspect,
   type TrimRange,
 } from "@/lib/ffmpeg";
 
@@ -105,6 +107,7 @@ export default function Home() {
   });
   const [speedEnabled, setSpeedEnabled] = useState(false);
   const [speed, setSpeed] = useState<SpeedOption>(SPEED_OPTIONS[2]); // default 2×
+  const [videoAspect, setVideoAspect] = useState<VideoAspect>("original");
   const [isDragging, setIsDragging] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -313,6 +316,7 @@ export default function Home() {
             compressPreset,
             trimArg,
             speedEnabled ? speed : null,
+            videoAspect,
           );
           break;
         case "convert":
@@ -322,6 +326,7 @@ export default function Home() {
             convertFormat,
             trimArg,
             speedEnabled ? speed : null,
+            videoAspect,
           );
           break;
       }
@@ -380,6 +385,7 @@ export default function Home() {
     trim,
     speed,
     speedEnabled,
+    videoAspect,
   ]);
 
   return (
@@ -571,6 +577,33 @@ export default function Home() {
                         selectedId={convertFormat.id}
                         onSelect={(p) => setConvertFormat(p)}
                       />
+                    )}
+
+                    {(tool === "compress" || tool === "convert") && (
+                      <div className="border border-zinc-200 dark:border-zinc-800 rounded-xl p-3 flex flex-col gap-2">
+                        <div className="text-sm font-medium">Aspect ratio</div>
+                        <div className="grid grid-cols-3 gap-2">
+                          {VIDEO_ASPECTS.map((a) => (
+                            <button
+                              key={a.id}
+                              type="button"
+                              onClick={() => setVideoAspect(a.id)}
+                              title={a.description}
+                              className={[
+                                "px-3 py-2 rounded-lg text-sm transition-colors text-center",
+                                videoAspect === a.id
+                                  ? "bg-zinc-900 dark:bg-zinc-100 text-white dark:text-zinc-900"
+                                  : "border border-zinc-200 dark:border-zinc-800 hover:border-zinc-400 dark:hover:border-zinc-600",
+                              ].join(" ")}
+                            >
+                              {a.label}
+                            </button>
+                          ))}
+                        </div>
+                        <p className="text-xs text-zinc-500 dark:text-zinc-400">
+                          {VIDEO_ASPECTS.find((a) => a.id === videoAspect)?.description}
+                        </p>
+                      </div>
                     )}
 
                     {/* Trim panel */}
